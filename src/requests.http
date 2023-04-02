@@ -1,0 +1,17 @@
+
+### Get all markets
+GET http://localhost:8080/markets
+
+### Get single market by id
+GET http://localhost:8080/markets/ad6e6dc4-a3ff-4426-abed-33dff32cb3ba
+
+### create market
+POST http://localhost:8080/markets
+Content-Type: application/json
+
+{
+  "id": "{{ $random.uuid }}",
+  "name": "{{ $random.alphabetic(12)}}"
+}
+
+### subscribe to product events
