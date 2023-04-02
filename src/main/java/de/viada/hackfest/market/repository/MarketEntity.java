@@ -17,7 +17,7 @@ public class MarketEntity {
 
     String marketName;
 
-    @OneToMany(mappedBy = "marketId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "marketId")
     Set<ProductEventMessage> lastMessages;
 
     public MarketEntity() {
