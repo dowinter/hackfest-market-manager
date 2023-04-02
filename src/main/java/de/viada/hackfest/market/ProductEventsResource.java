@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 
 @RequestScoped
-@Path("")
+@Path("/products")
 @ActivateRequestContext
 public class ProductEventsResource {
 
@@ -22,7 +22,7 @@ public class ProductEventsResource {
     Multi<ProductEventMessage> productEvents;
 
     @GET
-    @Path("/products/{marketId}")
+    @Path("/{marketId}")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     public Multi<ProductEventResponse> stream(UUID marketId) {
         return productEvents
