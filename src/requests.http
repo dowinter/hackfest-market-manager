@@ -4,7 +4,7 @@
 GET https://hackfest-market-manager-git-viada-production.apps.wa6eqszp.uksouth.aroapp.io/markets
 
 ### Get single market by id
-GET http://localhost:8080/markets/ad6e6dc4-a3ff-4426-abed-33dff32cb3ba
+GET https://hackfest-market-manager-git-viada-production.apps.wa6eqszp.uksouth.aroapp.io/markets/705f92c1-57ab-437f-b6de-eceb38f22d44
 
 ### create market
 ##POST http://localhost:8080/markets

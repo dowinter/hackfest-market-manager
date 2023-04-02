@@ -46,8 +46,8 @@ public class ProductEventService {
         }
 
         Set<ProductEventMessage> lastMessages = entity.getLastMessages();
-        lastMessages.remove(p);
-        lastMessages.add(p);
+        lastMessages.remove(productEntity);
+        lastMessages.add(productEntity);
 
         processedProductsEmitter.send(p);
     }
