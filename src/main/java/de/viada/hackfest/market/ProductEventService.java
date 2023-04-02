@@ -5,6 +5,8 @@ import de.viada.hackfest.market.repository.MarketEntity;
 import de.viada.hackfest.market.repository.MarketRepository;
 import io.smallrye.common.annotation.Blocking;
 import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -28,18 +30,24 @@ public class ProductEventService {
     @Blocking
     public void processProductEvent(ProductEventMessage p) {
 
-        if (!p.isPersistent()) {
-            p.persist();
+        ProductEventMessage productEntity = ProductEventMessage.findById(p.getProductId());
+
+        productEntity = productEntity == null ? p : productEntity;
+
+        if (!productEntity.isPersistent()) {
+            productEntity.persist();
         }
 
         MarketEntity entity = marketRepository.findByIdOptional(p.getMarketId())
-                .orElse(new MarketEntity(p.getMarketId(), new HashSet<>(), "Unkown market " + p.getMarketId()));
+                .orElse(new MarketEntity(p.getMarketId(), new HashSet<>(), "Unknown market " + p.getMarketId()));
 
         if (!marketRepository.isPersistent(entity)) {
             marketRepository.persist(entity);
         }
 
-        entity.getLastMessages().add(p);
+        Set<ProductEventMessage> lastMessages = entity.getLastMessages();
+        lastMessages.remove(p);
+        lastMessages.add(p);
 
         processedProductsEmitter.send(p);
     }
