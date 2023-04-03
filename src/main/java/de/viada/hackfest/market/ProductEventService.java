@@ -4,6 +4,7 @@ import de.viada.hackfest.market.model.ProductEventMessage;
 import de.viada.hackfest.market.repository.MarketEntity;
 import de.viada.hackfest.market.repository.MarketRepository;
 import io.smallrye.common.annotation.Blocking;
+import io.smallrye.reactive.messaging.annotations.Broadcast;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class ProductEventService {
 
     @Channel("processed-products")
     @OnOverflow(OnOverflow.Strategy.DROP)
+    @Broadcast
     Emitter<ProductEventMessage> processedProductsEmitter;
 
     @Inject
